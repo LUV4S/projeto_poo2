@@ -1,3 +1,5 @@
+#Define um limite de gastos do usuario para uma categoria especifica
+
 from decimal import Decimal
 from typing import List
 from financeiro.categoria import Categoria

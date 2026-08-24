@@ -1,3 +1,5 @@
+#Agrupa compras e lancamentos feitos no cartao de credito em determinado mes/ano
+
 from datetime import date
 from decimal import Decimal
 from enum import Enum

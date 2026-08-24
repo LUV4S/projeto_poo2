@@ -1,3 +1,5 @@
+#Gera relatorios e consolidacoes contabeis de um determinado mes/ano
+
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal

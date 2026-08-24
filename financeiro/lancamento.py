@@ -1,3 +1,5 @@
+#Entidade central do sistema, representa qualquer movimentacao
+
 from datetime import date
 from decimal import Decimal
 from enum import Enum

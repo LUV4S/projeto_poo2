@@ -1,3 +1,5 @@
+#Representa a conta bancaria fisica e digital onde o dinheiro fica guardado
+
 from decimal import Decimal
 from enum import Enum
 from typing import Optional

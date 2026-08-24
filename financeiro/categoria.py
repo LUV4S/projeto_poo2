@@ -1,3 +1,5 @@
+#Classifica os lancamentos financeiros em DESPESA ou RECEITA
+
 from enum import Enum
 
 class TipoCategoria(Enum):

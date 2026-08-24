@@ -1,3 +1,5 @@
+#Armazena os dados brutos do banco de dados
+
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal

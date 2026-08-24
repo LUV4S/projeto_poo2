@@ -1,3 +1,5 @@
+#Compara as transacoes do do extrato bancario externo com as lancadas manualmente do sistema
+
 from dataclasses import dataclass
 from typing import List, Tuple
 from financeiro.extrato import ItemExtrato
