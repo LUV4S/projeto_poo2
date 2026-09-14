@@ -17,6 +17,24 @@ O projeto é composto pelas 6 classes solicitadas no escopo dos Capítulos 4 a 7
 
 ---
 
+## 🧠 Decisões de Arquitetura e Modelagem
+
+### 1. Referência vs. Cópia no `Fechamento`
+No processo de geração de fechamento contábil, os lançamentos originais são **referenciados** e não clonados. Como o método `gerar_resumo_mes` opera de forma estática e em modo somente-leitura (calculando métricas sem mutar dados internos de transação), referenciar os objetos é a abordagem mais eficiente em memória e desempenho, preservando a imutabilidade dos lançamentos.
+
+### 2. Separação entre `Conciliacao` e `Fechamento`
+A **`Conciliacao`** foi modelada como uma classe própria e autônoma, e não como método de `Fechamento`, respeitando o **Princípio da Responsabilidade Única (SRP)**:
+* **`Conciliacao`:** Lida com auditoria operacional e conferência de registros internos contra transações brutas externas (OFX/banco), mantendo estado histórico dos pares conciliados e efetuando liquidação.
+* **`Fechamento`:** Atua na camada analítica de agregação contábil, apurando totais mensais com base exclusivamente em lançamentos já efetivados no período.
+
+### 3. Comportamento em Casos de Borda e Falha
+* **Períodos sem lançamentos:** Ao gerar fechamento para um mês/ano sem movimentações válidas, o sistema retorna um `ResumoMensal` preenchido de forma neutra (`total_receitas = 0.00`, `total_despesas = 0.00`, `resultado = 0.00`), sem estourar exceções.
+* **Divergência na Conciliação:**
+  * No matching preliminar (`sugerir_matches`), pares que divirjam de valor ou fujam da margem temporal de tolerância são simplesmente ignorados.
+  * Na tentativa explícita de conciliação com valores absolutos divergentes (`conciliar`), o sistema lança um `ValueError`, barrando a operação antes de efetivar ou registrar o par.
+
+---
+
 ## 🧪 Testes Automatizados
 
 A suíte de testes foi construída com `pytest` e cobre fluxos de sucesso e tratamento de exceções.
